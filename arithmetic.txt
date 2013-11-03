@@ -1,0 +1,177 @@
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.Write("请输入数字A：");
+                string strNumberA = Console.ReadLine();
+                Console.Write("请选择运算符号(+、-、*、/)：");
+                string strOperate = Console.ReadLine();
+                Console.Write("请输入数字B：");
+                string strNumberB = Console.ReadLine();
+                string strResult = "";
+                Operation oper = GetOperation.createOperate(strOperate);
+                //oper.strNumberA = Convert.ToDouble(strNumberA);
+                //oper.strNumberB = Convert.ToDouble(strNumberB);
+                //strResult = oper.GetResult().ToString();
+
+
+
+                strResult = oper.GetResult(Convert.ToDouble(strNumberA), Convert.ToDouble(strNumberB)).ToString();
+                Console.WriteLine("结果是：" + strResult);
+                Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("您的输入有错：" + ex.Message);
+            }
+        }
+    }
+
+    //public class GetOperation                                                                    
+    //{
+    //    public static Operation createOperate(string operate)
+    //    {
+    //        Operation oper = null;
+    //        switch (operate)
+    //        {
+    //            case "+":
+    //                oper = new Add();
+    //                break;
+    //            case "-":
+    //                oper = new Substruct();
+    //                break;
+    //            case "*":
+    //                oper = new Multiply();
+    //                break;
+    //            case "/":
+    //                oper = new Divide();
+    //                break;
+    //        }
+
+    //        return oper;
+    //    }
+    //}
+
+    //public class Operation                                     // 这是不是应该用Abstract class? 我直接用class 貌似也能用
+    //{
+    //     public double strNumberA { get; set; }
+    //     public double strNumberB { get; set; }
+    //     public virtual double GetResult()
+    //     {
+    //         double result = 0;
+    //         return result;
+    //     }
+    //}
+
+    //public class Add : Operation
+    //{
+    //    public override double GetResult()
+    //    {
+    //        double result = 0;
+    //        result = strNumberA + strNumberB;
+    //        return result;
+    //    }
+    //}
+
+    //public class Substruct : Operation
+    //{
+    //    public override double GetResult()
+    //    {
+    //        double result = 0;
+    //        result = strNumberA - strNumberB;
+    //        return result;
+    //    }
+    //}
+
+    //public class Multiply : Operation
+    //{
+    //    public override double GetResult()
+    //    {
+    //        double result = 0;
+    //        result = strNumberA * strNumberB;
+    //        return result;
+    //    }
+    //}
+
+    //public class Divide : Operation
+    //{
+    //    public override double GetResult()
+    //    {
+    //        double result = 0;
+    //        result = strNumberA / strNumberB;
+    //        return result;
+    //    }
+    //}
+
+    public class GetOperation                                                                             
+    {
+        public static Operation createOperate(string operate)
+        {
+            Operation oper = null;
+            switch (operate)
+            {
+                case "+":
+                    oper = new Add();
+                    break;
+                case "-":
+                    oper = new Substruct();
+                    break;
+                case "*":
+                    oper = new Multiply();
+                    break;
+                case "/":
+                    oper = new Divide();
+                    break;
+            }
+
+            return oper;
+        }
+    }
+
+    public interface Operation                                     //Virtual,override 在继承类的时候会用到，在implement interface , do not need it
+    {
+         double GetResult(double strNumberA, double strNumberB);
+    }
+
+    public class Add : Operation
+    {
+        public double GetResult(double strNumberA, double strNumberB)
+        {
+            double result = 0;
+            result = strNumberA + strNumberB;
+            return result;
+        }
+    }
+
+    public class Substruct : Operation
+    {
+        public double GetResult(double strNumberA, double strNumberB)
+        {
+            double result = 0;
+            result = strNumberA - strNumberB;
+            return result;
+        }
+    }
+
+    public class Multiply : Operation
+    {
+        public double GetResult(double strNumberA, double strNumberB)
+        {
+            double result = 0;
+            result = strNumberA * strNumberB;
+            return result;
+        }
+    }
+
+    public class Divide : Operation
+    {
+        public double GetResult(double strNumberA, double strNumberB)
+        {
+            double result = 0;
+            result = strNumberA / strNumberB;
+            return result;
+        }
+    }
+}
